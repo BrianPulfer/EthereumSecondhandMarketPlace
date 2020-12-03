@@ -1,15 +1,27 @@
+// React, Web3 and Ethereum contracts
 import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import getWeb3 from "./getWeb3";
 
+// Own Components
+import Home from "./components/Home";
+import About from "./components/About";
+import CustomNavbar from "./components/CustomNavbar";
+
+// Stylesheets
 import "./App.css";
-import {Button, Image, Container, Row, Col} from "react-bootstrap";
-import {Router, Switch, Route, Link} from "react-router-dom"
+
+// React bootstrap
+import {Button, Image, Container, Row, Col, Navbar} from "react-bootstrap";
+
+// React-Router
+import {BrowserRouter, Switch, Route, Link} from "react-router-dom"
 
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+  //state = { storageValue: 0, web3: null, accounts: null, contract: null };
 
+  /*
   componentDidMount = async () => {
     try {
       // Get network provider and web3 instance.
@@ -50,18 +62,29 @@ class App extends Component {
     // Update state with the result.
     this.setState({ storageValue: response });
   };
+  */
 
   render() {
+    /*
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
+    */
     return (
         <Container fluid={true}>
-          <Row>
-            <Col>
-              <h1>This is the main app.</h1>
-            </Col>
-          </Row>
+          <BrowserRouter>
+            <CustomNavbar />
+
+            <Switch>
+              <Route exact={'/home'} path={'/'}>
+                <Home />
+              </Route>
+              <Route path={'/about'}>
+                <About />
+              </Route>
+            </Switch>
+
+          </BrowserRouter>
         </Container>
     );
   }
