@@ -8,7 +8,7 @@ class Home extends Component{
         return (
             <Row>
                 <Col>
-                    <h1>This is the main app.</h1>
+                    <h1 align={"center"}>This is the Home page.</h1>
                 </Col>
             </Row>
         )

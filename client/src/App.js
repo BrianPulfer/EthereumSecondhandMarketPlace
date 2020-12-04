@@ -16,6 +16,7 @@ import {Button, Image, Container, Row, Col, Navbar} from "react-bootstrap";
 
 // React-Router
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom"
+import CustomFooter from "./components/CustomFooter";
 
 
 class App extends Component {
@@ -85,6 +86,7 @@ class App extends Component {
             </Switch>
 
           </BrowserRouter>
+          <CustomFooter/>
         </Container>
     );
   }
