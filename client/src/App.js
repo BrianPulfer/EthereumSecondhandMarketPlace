@@ -4,8 +4,8 @@ import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import getWeb3 from "./getWeb3";
 
 // Own Components
-import Home from "./components/Home";
-import About from "./components/About";
+import Home from "./pages/Home";
+import About from "./pages/About";
 import CustomNavbar from "./components/CustomNavbar";
 
 // Stylesheets
