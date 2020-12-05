@@ -16,8 +16,8 @@ class About extends Component{
                 <Row className={"AboutText"}>
                     <Col>
                         <p align={"center"}>
-                            This project is a simple React Implementation of the popular board game "Loup Garou" (werewolf).<br/>
-                            The project makes use of Ethereum smart contracts through the solidity programming language.<br/>
+                            This project is a simple Implementation of the popular board game "Loups Garoux" (Werewolves).<br/>
+                            The project makes use of Ethereum smart contracts through the solidity programming language and the truffle-react scaffholding. The web framework used are React and React-Bootstrap.<br/>
                             <br/>
                             <b>Authors: </b> Brian Pulfer, Michael Mazourik.
                         </p>

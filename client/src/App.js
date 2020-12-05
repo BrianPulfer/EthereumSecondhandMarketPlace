@@ -6,7 +6,7 @@ import getWeb3 from "./getWeb3";
 // Own Components
 import Home from "./pages/Home";
 import About from "./pages/About";
-import CustomNavbar from "./components/CustomNavbar";
+import CustomNavbar from "./components/CustomNavbar/CustomNavbar";
 
 // Stylesheets
 import "./App.css";
@@ -16,7 +16,7 @@ import {Button, Image, Container, Row, Col, Navbar} from "react-bootstrap";
 
 // React-Router
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom"
-import CustomFooter from "./components/CustomFooter";
+import CustomFooter from "./components/CustomFooter/CustomFooter";
 
 
 class App extends Component {
@@ -77,15 +77,15 @@ class App extends Component {
             <CustomNavbar />
 
             <Switch>
-              <Route exact={'/home'} path={'/'}>
+              <Route exact path={'/'}>
                 <Home />
               </Route>
               <Route path={'/about'}>
                 <About />
               </Route>
             </Switch>
-
           </BrowserRouter>
+
           <CustomFooter/>
         </Container>
     );
