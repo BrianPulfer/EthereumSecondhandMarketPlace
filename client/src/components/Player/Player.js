@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Image} from "react-bootstrap";
+import {Image, Row, Col} from "react-bootstrap";
 
 import LoupImage from "./loup.png";
 import CivileImage from "./civile.png";
@@ -19,8 +19,14 @@ class Player extends React.Component{
 
         return (
             <div className={"player"}>
-                <h5 className={header_class}>{this.props.name}</h5>
-                <Image className={"player-image"} src={player_image} roundedCircle fluid />
+                <Row>
+                    <Col>
+                        <h5 className={header_class} align={"center"}>{this.props.name}</h5>
+                    </Col>
+                </Row>
+                <Row>
+                    <Image className={"player-image col"} src={player_image}  roundedCircle fluid />
+                </Row>
             </div>
         );
     }
