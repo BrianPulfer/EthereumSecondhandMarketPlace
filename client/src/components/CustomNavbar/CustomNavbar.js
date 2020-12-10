@@ -11,7 +11,7 @@ class CustomNavbar extends Component{
     render() {
         return (
             <Navbar className={"custom-navbar"} sticky={'top'}>
-                <NavbarBrand>Les Loups Garoux</NavbarBrand>
+                <NavbarBrand>Second-hand Marketplace</NavbarBrand>
                 <Navbar.Collapse className={"justify-content-end"}>
                     <Link to={'/'}>Home</Link>
                     <Link to={ABOUT_ROUTE}>About</Link>

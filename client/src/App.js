@@ -12,57 +12,35 @@ import CustomNavbar from "./components/CustomNavbar/CustomNavbar";
 import "./App.css";
 
 // React bootstrap
-import {Button, Image, Container, Row, Col, Navbar} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 
 // React-Router
-import {BrowserRouter, Switch, Route, Link} from "react-router-dom"
+import {BrowserRouter, Switch, Route} from "react-router-dom"
 import CustomFooter from "./components/CustomFooter/CustomFooter";
 
-// Game parameters
-const NUMBER_PLAYERS = 5;
-const LOUPS_PERCENTAGE = 0.2;
-const NR_WOLVES = Math.floor(NUMBER_PLAYERS * LOUPS_PERCENTAGE);
 
 class App extends Component {
 
     constructor() {
         super();
 
-        let roles = []
-        let deads = []
-
-        this.restart_game.bind(this);
-
-        // Randomly initializing player roles
-        for(let i = 0; i<NUMBER_PLAYERS; i++){
-            roles.push(NR_WOLVES > roles.length)
-            deads.push(false)
-        }
+        let itemsTitles = ["Cute doggo"]
+        let itemsImages = ["https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*"]
+        let itemsDescriptions = ["A very cute doggo"]
+        let beneficiaries = ["Mr Beneficiorsky"]
+        let highestBids = ["100$"]
+        let finishTimes = [1000232325]
 
         this.state = {
-            nr_players : NUMBER_PLAYERS,
-            roles : shuffle(roles),
-            deads: deads
+            itemsTitles: itemsTitles,
+            itemsImages: itemsImages,
+            itemsDescriptions: itemsDescriptions,
+            beneficiaries: beneficiaries,
+            highestBids: highestBids,
+            finishTimes: finishTimes
         };
     }
 
-    restart_game(){
-        console.log("Reinitializing")
-        let roles = []
-        let deads = []
-
-        // Randomly initializing player roles
-        for(let i = 0; i<NUMBER_PLAYERS; i++){
-            roles.push(NR_WOLVES > roles.length)
-            deads.push(false)
-        }
-
-        this.setState({
-            nr_players : NUMBER_PLAYERS,
-            roles : shuffle(roles),
-            deads: deads
-        });
-    }
   //state = { storageValue: 0, web3: null, accounts: null, contract: null };
 
   /*
@@ -114,8 +92,6 @@ class App extends Component {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
     */
-      console.log("Rendering APP");
-      console.log(this.state);
     return (
         <Container fluid={true}>
           <BrowserRouter>
@@ -123,10 +99,7 @@ class App extends Component {
 
             <Switch>
               <Route exact path={'/'}>
-                <Home
-                    nr_players={this.state.nr_players}
-                    roles={this.state.roles} deads={this.state.deads}
-                    on_restart={this.restart_game.bind(this)}/>
+                <Home appState={this.state}/>
               </Route>
               <Route path={'/about'}>
                 <About />
@@ -139,24 +112,4 @@ class App extends Component {
     );
   }
 }
-
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
 export default App;
