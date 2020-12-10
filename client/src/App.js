@@ -11,7 +11,11 @@ function App() {
 
   //React management
   var [_value, setNumber] = useState(0);
-  const [getNumber, setGetNumber] = useState('0x00');
+  var [getNumber, setGetNumber] = useState('0x00');
+
+  var [time_left, getTimeNumber] = useState('0x00');
+
+
   const handleBid = async (e) => {
     e.preventDefault();    
     const accounts = await window.ethereum.enable();
@@ -52,11 +56,37 @@ function App() {
     const result = await SimpleContract.methods.get_returns.call();
     console.log(result);
   }
-  
+
+/* Time Management */
+
+async function handleTime(){
+  const result = await SimpleContract.methods.get_time().call()
+  //why does it call result so many times?
+
+
+  setInterval(()=>{
+    var time_difference = get_remaining_time(result)
+    var string_time =''+ parseInt((Math.floor(time_difference/60))) + ":" + parseInt((time_difference - (Math.floor(time_difference/60)*60)))
+    if (string_time.split(":")[1].length == 1){
+      string_time = string_time.split(":")[0]+ ":0" +string_time.split(":")[1]
+    }
+    
+    getTimeNumber(string_time)
+  }, 1000)
+}
+
+handleTime()
+
+function get_remaining_time(timestamp) {
+  var difference = timestamp - Date.now()/1000;
+  return difference;
+}
+
 
   return (
     <div className="App">
       <header className="App-header">
+        <h1>Product Title</h1>
         <form onSubmit={handleBid}>
           <label>
             Set Number:
@@ -81,9 +111,16 @@ function App() {
           type="button" > 
           Withdraw
         </button>
+        <div>
+          
+          <h1 id="time_left">Time Left: {time_left}</h1>
+        </div>
       </header>
     </div>  
   );
 }
+
+
+
 
 export default App;
