@@ -61,8 +61,7 @@ async function handleTime(){
   const result = await SimpleContract.methods.get_time().call()
   //why does it call result so many times?
 
-
-  setInterval(()=>{
+  setTimeout(()=>{
     handleGet()
     var time_difference = get_remaining_time(result)
     var string_time =''+ parseInt((Math.floor(time_difference/60))) + ":" + parseInt((time_difference - (Math.floor(time_difference/60)*60)))
@@ -81,7 +80,6 @@ function get_remaining_time(timestamp) {
   return difference;
 }
 
-
   return (
     <div className="App">
       <header className="App-header">
@@ -99,7 +97,7 @@ function get_remaining_time(timestamp) {
         </form>
         <br/>
 
-        <h1>Bid Price: {getNumber}</h1>
+        <h1>Bid Price: {getNumber/1000000000}</h1>
         
         <br/>
         <button
