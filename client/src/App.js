@@ -44,11 +44,9 @@ function App() {
   }
 
 
-  const handleGet = async (e) => {
-    e.preventDefault();
+  async function handleGet (){
     const result = await SimpleContract.methods.get().call();
     setGetNumber(result);
-    console.log(result);
   }
 
   const handleWithdraw = async (e) => {
@@ -65,6 +63,7 @@ async function handleTime(){
 
 
   setInterval(()=>{
+    handleGet()
     var time_difference = get_remaining_time(result)
     var string_time =''+ parseInt((Math.floor(time_difference/60))) + ":" + parseInt((time_difference - (Math.floor(time_difference/60)*60)))
     if (string_time.split(":")[1].length == 1){
@@ -99,12 +98,9 @@ function get_remaining_time(timestamp) {
           <input type="submit" value="Set Number" />
         </form>
         <br/>
-        <button
-          onClick={handleGet}
-          type="button" > 
-          Get Number 
-        </button>
-        { getNumber }
+
+        <h1>Bid Price: {getNumber}</h1>
+        
         <br/>
         <button
           onClick={handleWithdraw}
