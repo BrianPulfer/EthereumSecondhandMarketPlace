@@ -91,6 +91,7 @@ contract SimpleAuction {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -125,4 +126,11 @@ contract SimpleAuction {
     function get() public view returns (uint) {
         return highestBid;
     }
+
+    function get_time() public view returns (uint) {
+        return auctionEndTime;
+    }
+
+    
+    
 }
