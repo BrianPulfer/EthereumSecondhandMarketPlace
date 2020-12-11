@@ -51,9 +51,50 @@ function App() {
 
   const handleWithdraw = async (e) => {
     e.preventDefault();
-    const result = await SimpleContract.methods.get_returns.call();
+    const result = await SimpleContract.methods.withdraw().call();
     console.log(result);
   }
+  const handleWithdrawDisplay = async (e) => {
+    e.preventDefault();
+    const result = await SimpleContract.methods.get_returns().call();
+    console.log(result);
+  }
+
+  const handleAddressDisplay = async (e) => {
+    e.preventDefault();
+    const result = await SimpleContract.methods.get_current_address().call();
+    console.log(result);
+  }
+
+  const handleHighestBidder = async (e) => {
+    e.preventDefault();
+    const result = await SimpleContract.methods.get_highest_bidder().call();
+    console.log(result);
+  }
+
+  async function handlePayUs (){
+    const result = await SimpleContract.methods.pay_us().call();
+    console.log(result);
+  }
+  
+  async function handlePayUsPayable(){
+    const accounts = await window.ethereum.enable();
+    const account = accounts[0];
+
+    var message = {
+      from: account,
+      value: '1',
+      gas: 100000
+    }
+    const result = await SimpleContract.methods.pay_us_payable().send(message);
+    console.log(result);
+  }
+
+  async function handleEndContract(){
+    const result = await SimpleContract.methods.auctionEnd().call();
+    console.log(result);
+  }
+
 
 /* Time Management */
 
@@ -105,6 +146,41 @@ function get_remaining_time(timestamp) {
           type="button" > 
           Withdraw
         </button>
+        <button
+          onClick={handleWithdrawDisplay}
+          type="button" > 
+          Display Withdraw amount
+        </button>
+
+        <button
+          onClick={handleAddressDisplay}
+          type="button" > 
+          sender address
+        </button>
+
+        <button
+          onClick={handleHighestBidder}
+          type="button" > 
+          Highest Bidder
+        </button>
+
+        <button
+          onClick={handlePayUs}
+          type="button" > 
+          Pay Us
+        </button>
+
+        <button
+          onClick={handlePayUsPayable}
+          type="button" > 
+          Pay Us Payable
+        </button>
+        <button
+          onClick={handleEndContract}
+          type="button" > 
+          End Contract
+        </button>
+
         <div>
           
           <h1 id="time_left">Time Left: {time_left}</h1>

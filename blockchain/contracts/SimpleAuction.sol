@@ -6,6 +6,7 @@ contract SimpleAuction {
     // or time periods in seconds.
     address payable public beneficiary;
     uint public auctionEndTime;
+    address payable public return_address;
 
     // Current state of the auction.
     address public highestBidder;
@@ -77,22 +78,21 @@ contract SimpleAuction {
     }
 
     /// Withdraw a bid that was overbid.
-    function withdraw() public returns (bool) {
+    function withdraw() public returns (uint) {
         uint amount = pendingReturns[msg.sender];
-        if (amount > 0) {
-            // It is important to set this to zero because the recipient
-            // can call this function again as part of the receiving call
-            // before `send` returns.
-            pendingReturns[msg.sender] = 0;
+        return_address = msg.sender;
+        return_address.transfer(amount);
+        return amount;
+    }
 
-            if (!msg.sender.send(amount)) {
-                // No need to call throw here, just reset the amount owing
-                pendingReturns[msg.sender] = amount;
-                return false;
-            }
-        }
+    function pay_us() public returns (address){
+        msg.sender.transfer(1000000000);
+        return msg.sender;
+    }
 
-        return true;
+    function pay_us_payable() public payable returns (address){
+        msg.sender.transfer(1000000000);
+        return msg.sender;
     }
 
     /// End the auction and send the highest bid
@@ -131,6 +131,16 @@ contract SimpleAuction {
         return auctionEndTime;
     }
 
+    function get_returns() public view returns (uint) {
+            return pendingReturns[msg.sender];
+        }
+
+    function get_current_address() public view returns (address) {
+            return msg.sender;
+        }
     
+    function get_highest_bidder() public view returns (address) {
+        return highestBidder;
+    }
     
 }
