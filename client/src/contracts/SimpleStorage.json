@@ -32,15 +32,15 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"get\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"x\",\"type\":\"uint256\"}],\"name\":\"set\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/brianpulfer/Desktop/USI/MAI-Second_Year/Fall/Distributed Algorithms 2/Project/EthereumLoupGarou/contracts/SimpleStorage.sol\":\"SimpleStorage\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/brianpulfer/Desktop/USI/MAI-Second_Year/Fall/Distributed Algorithms 2/Project/EthereumLoupGarou/contracts/SimpleStorage.sol\":{\"keccak256\":\"0x512df1603c5f878921707d236bc53d974afe05b4d9de4b6094249bac5ab60efe\",\"urls\":[\"bzz-raw://0d6de97971b1c387f984fa7ea1d9ec10f8a63d68cc63bf8bd00d8c3a7c9e3ee1\",\"dweb:/ipfs/Qmbt92T34sHzedfJjDsvbisvLhRtghNwS6VW8tqrGkrqTD\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b5060c68061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c806360fe47b11460375780636d4ce63c146062575b600080fd5b606060048036036020811015604b57600080fd5b8101908080359060200190929190505050607e565b005b60686088565b6040518082815260200191505060405180910390f35b8060008190555050565b6000805490509056fea265627a7a72315820757ec2908267f03758adb7a3fb5ded924bb3ae7b407633efe7d452589a1a140364736f6c63430005100032",
-  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060325760003560e01c806360fe47b11460375780636d4ce63c146062575b600080fd5b606060048036036020811015604b57600080fd5b8101908080359060200190929190505050607e565b005b60686088565b6040518082815260200191505060405180910390f35b8060008190555050565b6000805490509056fea265627a7a72315820757ec2908267f03758adb7a3fb5ded924bb3ae7b407633efe7d452589a1a140364736f6c63430005100032",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"get\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"x\",\"type\":\"uint256\"}],\"name\":\"set\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/brianpulfer/Desktop/USI/MAI-Second_Year/Fall/Distributed Algorithms 2/Project/EthereumSecondhandMarketPlace/contracts/SimpleStorage.sol\":\"SimpleStorage\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/brianpulfer/Desktop/USI/MAI-Second_Year/Fall/Distributed Algorithms 2/Project/EthereumSecondhandMarketPlace/contracts/SimpleStorage.sol\":{\"keccak256\":\"0x512df1603c5f878921707d236bc53d974afe05b4d9de4b6094249bac5ab60efe\",\"urls\":[\"bzz-raw://0d6de97971b1c387f984fa7ea1d9ec10f8a63d68cc63bf8bd00d8c3a7c9e3ee1\",\"dweb:/ipfs/Qmbt92T34sHzedfJjDsvbisvLhRtghNwS6VW8tqrGkrqTD\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060c68061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c806360fe47b11460375780636d4ce63c146062575b600080fd5b606060048036036020811015604b57600080fd5b8101908080359060200190929190505050607e565b005b60686088565b6040518082815260200191505060405180910390f35b8060008190555050565b6000805490509056fea265627a7a7231582063adf2f6d029a70aecb798a06c968b4d949d3e3305bb07188a500844910558b464736f6c63430005100032",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060325760003560e01c806360fe47b11460375780636d4ce63c146062575b600080fd5b606060048036036020811015604b57600080fd5b8101908080359060200190929190505050607e565b005b60686088565b6040518082815260200191505060405180910390f35b8060008190555050565b6000805490509056fea265627a7a7231582063adf2f6d029a70aecb798a06c968b4d949d3e3305bb07188a500844910558b464736f6c63430005100032",
   "sourceMap": "66:176:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:176:1;;;;;;;",
   "deployedSourceMap": "66:176:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:176:1;;;;;;;;;;;;;;;;;;;;;;;;113:53;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;113:53:1;;;;;;;;;;;;;;;;;:::i;:::-;;170:70;;;:::i;:::-;;;;;;;;;;;;;;;;;;;113:53;160:1;147:10;:14;;;;113:53;:::o;170:70::-;206:4;225:10;;218:17;;170:70;:::o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.21 <0.7.0;\n\ncontract SimpleStorage {\n  uint storedData;\n\n  function set(uint x) public {\n    storedData = x;\n  }\n\n  function get() public view returns (uint) {\n    return storedData;\n  }\n}\n",
-  "sourcePath": "/Users/brianpulfer/Desktop/USI/MAI-Second_Year/Fall/Distributed Algorithms 2/Project/EthereumLoupGarou/contracts/SimpleStorage.sol",
+  "sourcePath": "/Users/brianpulfer/Desktop/USI/MAI-Second_Year/Fall/Distributed Algorithms 2/Project/EthereumSecondhandMarketPlace/contracts/SimpleStorage.sol",
   "ast": {
-    "absolutePath": "/Users/brianpulfer/Desktop/USI/MAI-Second_Year/Fall/Distributed Algorithms 2/Project/EthereumLoupGarou/contracts/SimpleStorage.sol",
+    "absolutePath": "/Users/brianpulfer/Desktop/USI/MAI-Second_Year/Fall/Distributed Algorithms 2/Project/EthereumSecondhandMarketPlace/contracts/SimpleStorage.sol",
     "exportedSymbols": {
       "SimpleStorage": [
         59
@@ -295,7 +295,7 @@
     "src": "32:211:1"
   },
   "legacyAST": {
-    "absolutePath": "/Users/brianpulfer/Desktop/USI/MAI-Second_Year/Fall/Distributed Algorithms 2/Project/EthereumLoupGarou/contracts/SimpleStorage.sol",
+    "absolutePath": "/Users/brianpulfer/Desktop/USI/MAI-Second_Year/Fall/Distributed Algorithms 2/Project/EthereumSecondhandMarketPlace/contracts/SimpleStorage.sol",
     "exportedSymbols": {
       "SimpleStorage": [
         59
@@ -558,11 +558,11 @@
       "events": {},
       "links": {},
       "address": "0x2d2245b165671398F194F28a09959286eCAd5049",
-      "transactionHash": "0xc7e81e5f1416f8b7179fd634d17b936d109b3fc7a0d1f09d6a42b6636d116617"
+      "transactionHash": "0x1f8d46900b6ae94328b454c0e68ce0da81cf85bffaf9e3e0e0e166e1cf147b4b"
     }
   },
   "schemaVersion": "3.3.2",
-  "updatedAt": "2020-12-06T14:25:32.010Z",
+  "updatedAt": "2020-12-12T11:17:33.514Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
