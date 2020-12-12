@@ -24,6 +24,7 @@ class Home extends Component {
                     beneficiary={appState.beneficiaries[i]}
                     bid={appState.highestBids[i]}
                     finishTime={appState.finishTimes[i]}
+                    appState={appState}
                 />
             )
         }

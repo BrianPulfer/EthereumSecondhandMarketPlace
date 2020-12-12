@@ -7,6 +7,10 @@ import "./ItemSheet.css";
 class ItemSheet extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = ({
+             bidValue: this.props.bid
+        });
     }
 
     getTimeLeft(finishTime){
@@ -25,6 +29,34 @@ class ItemSheet extends React.Component {
         return Math.floor(timeInSeconds)+"s"
     }
 
+    handleBid = async () => {
+        var newBid = document.getElementById("bid-input").value
+
+        const accounts = await window.ethereum.enable();
+        const account = accounts[0];
+
+        var weiBid = this.props.appState.web3.utils.toWei(''+newBid, "ether");
+
+        var message = {
+            from: account,
+            value: weiBid,
+            gas: 100000
+        }
+
+        const contract = this.props.appState.contract
+        console.log(contract)
+
+        const gas = await contract.methods.bid().estimateGas(message);
+        message = {
+            from: account,
+            value: weiBid,
+            gas: gas
+        }
+
+        const result = await contract.methods.bid().send(message)
+        console.log(result);
+    }
+
     render() {
         // let timeLeft = this.props.finishTime
         let timeLeft = this.getTimeLeft(this.props.finishTime);
@@ -41,7 +73,14 @@ class ItemSheet extends React.Component {
                             </Card.Text>
                             <h2>{timeLeft}</h2>
                             <h1>{this.props.bid} ETH</h1>
-                            <Button className={"col-6 offset-3"} variant="primary">Bid</Button>
+                            <Row className={"bidding-form"}>
+                                <form className={"col offset-3"}>
+                                    <input className={"col"} id={"bid-input"} type={"text"} placeholder={"Insert your bid here"}/>
+                                </form>
+                                <Button className={"col"} variant="primary" onClick={this.handleBid}>
+                                    Bid
+                                </Button>
+                            </Row>
                         </Card.Body>
                     </Card>
                 </Col>
