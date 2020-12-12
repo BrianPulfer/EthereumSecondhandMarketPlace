@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {Card, Button, Row, Col, Image} from 'react-bootstrap'
 
@@ -8,8 +8,16 @@ class ItemSheet extends React.Component {
     constructor(props) {
         super(props);
 
+        // Counter
+        setInterval(() => {
+                this.setState({
+                    timeLeft: this.getTimeLeft()
+                })
+            }, 1000)
+
         this.state = {
-            active: true
+            active: true,
+            timeLeft: this.getTimeLeft()
         }
     }
 
@@ -83,14 +91,15 @@ class ItemSheet extends React.Component {
                     <h1>{currentMaxBid} ETH</h1>
                     <Row className={"bidding-form"}>
                         <form className={"col-3 offset-3"}>
-                            <input className={"col"} id={"bid-input"} type={"text"} placeholder={"Insert your bid here"}/>
+                            <input className={"col"} id={"bid-input"} type={"text"}
+                                   placeholder={"Insert your bid here"}/>
                         </form>
                         <Button className={"col-3"} variant="primary" onClick={this.handleBid}>
                             Bid
                         </Button>
                     </Row>
                 </div>
-        } else{
+        } else {
             biddingPart =
                 <h1>Auction closed</h1>
         }
