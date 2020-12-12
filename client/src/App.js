@@ -19,10 +19,9 @@ import {Container} from "react-bootstrap";
 import {BrowserRouter, Switch, Route} from "react-router-dom"
 
 
-
 class App extends Component {
 
-    static async getContract(){
+    static async getContract() {
         // Get network provider and web3 instance.
         const web3 = await getWeb3();
 
@@ -38,14 +37,14 @@ class App extends Component {
     constructor() {
         super();
 
-        let itemsTitles = []
-        let itemsImages = []
-        let itemsDescriptions = []
+        let itemsTitles = ["Playstation 5"]
+        let itemsImages = ["https://www.inputmag.dk/wp-content/uploads/2020/06/2020_0611_playstation5.jpg"]
+        let itemsDescriptions = ["Selling brand new playstation 5. Perfect conditions. Selling to the best bidder."]
         let beneficiaries = []
         let highestBids = []
         let finishTimes = []
 
-        this.onNewAuction = this.onNewAuction.bind(this);
+        // this.onNewAuction = this.onNewAuction.bind(this);
 
         this.state = {
             itemsTitles: itemsTitles,
@@ -60,6 +59,7 @@ class App extends Component {
         };
     }
 
+    /*
     onNewAuction(title, image, description, duration) {
         let titles = this.state.itemsTitles;
         let images = this.state.itemsImages;
@@ -73,7 +73,7 @@ class App extends Component {
         descriptions.push(description);
         beneficiaries.push(null); // TODO Handle
         bids.push(0);
-        finishTimes.push(new Date().getTime() + duration*60*60*1000);
+        finishTimes.push(new Date().getTime() + duration * 60 * 60 * 1000);
 
         this.setState({
             itemsTitles: titles,
@@ -84,6 +84,7 @@ class App extends Component {
             finishTimes: finishTimes
         });
     }
+     */
 
     componentDidMount = async () => {
         try {
@@ -101,13 +102,34 @@ class App extends Component {
                 deployedNetwork && deployedNetwork.address,
             );
 
+            // TODO: Find state of the app from contract.
+            const bidIncreases = await instance.getPastEvents("HighestBidIncreased",
+                {
+                    fromBlock: 0,
+                    toBlock: 'latest'
+                });
+
+            var highestBids = []
+            for(let i = 0; i<bidIncreases.length; i++){
+                highestBids.push(bidIncreases[i].returnValues[1])
+            }
+
+            const endTime = await instance.methods.get_time().call()
+            var finishTimes = this.state.finishTimes
+            finishTimes.push(endTime)
+
+            console.log(endTime)
+            console.log(new Date().getTime()/1000)
+
             // Set web3, accounts, and contract to the state, and then proceed with an
             // example of interacting with the contract's methods.
             this.setState(
                 {
                     web3: web3,
                     accounts: accounts,
-                    contract: instance
+                    contract: instance,
+                    highestBids: highestBids,
+                    finishTimes: finishTimes
                 }
             );
         } catch (error) {
@@ -123,6 +145,8 @@ class App extends Component {
         if (!this.state.web3) {
             return <div>Loading Web3, accounts, and contract...</div>;
         }
+
+        console.log(this.state)
 
         return (
             <Container fluid={true}>

@@ -19,7 +19,7 @@ contract SimpleAuction {
   // By default initialized to `false`.
   bool ended;
 
-  // 2 meaningful Events that will be emitted on changes.
+  // 3 meaningful Events that will be emitted on changes.
   event HighestBidIncreased(address bidder, uint amount);
   event AuctionEnded(address winner, uint amount);
 
@@ -74,7 +74,7 @@ contract SimpleAuction {
     }
     highestBidder = msg.sender;
     highestBid = msg.value;
-    emit HighestBidIncreased(msg.sender, msg.value);
+    emit HighestBidIncreased(highestBidder, highestBid);
   }
 
   /// Withdraw a bid that was overbid.
@@ -83,16 +83,6 @@ contract SimpleAuction {
     return_address = msg.sender;
     return_address.transfer(amount);
     return amount;
-  }
-
-  function pay_us() public returns (address){
-    msg.sender.transfer(1000000000);
-    return msg.sender;
-  }
-
-  function pay_us_payable() public payable returns (address){
-    msg.sender.transfer(1000000000);
-    return msg.sender;
   }
 
   /// End the auction and send the highest bid

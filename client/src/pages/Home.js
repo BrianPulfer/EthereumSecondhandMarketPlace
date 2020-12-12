@@ -31,7 +31,7 @@ class Home extends Component {
 
         return (
             <div className={"home-container"}>
-                <div className={"form-container"}>
+                <div className={"form-container"} hidden={true}>
                     <Form className={"auction-form"}>
                         <Form.Row>
                             <Form.Control id={"auction-title"} placeholder={"Title"} className={"col-6 offset-3"}/>

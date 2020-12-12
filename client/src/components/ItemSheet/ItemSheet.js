@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Card, Button, Row, Col} from 'react-bootstrap'
+import {Card, Button, Row, Col, Image} from 'react-bootstrap'
 
 import "./ItemSheet.css";
 
@@ -8,25 +8,29 @@ class ItemSheet extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = ({
-             bidValue: this.props.bid
-        });
+        this.state = {
+            active: true
+        }
     }
 
-    getTimeLeft(finishTime){
-        let timeInSeconds = (finishTime - new Date().getTime()) / 1000;
+    getTimeLeft(finishTime) {
+        if (!finishTime) {
+            return "Timer starts with the first bid";
+        }
 
-        if(timeInSeconds > 60){
+        let timeInSeconds = (finishTime - new Date().getTime() / 1000);
+
+        if (timeInSeconds > 60) {
             let timeInMinutes = timeInSeconds / 60
             timeInSeconds = timeInSeconds % 60
-            if(timeInMinutes > 60){
+            if (timeInMinutes > 60) {
                 let timeInHours = timeInMinutes / 60
                 timeInMinutes = timeInMinutes % 60
-                return Math.floor(timeInHours)+"h "+Math.floor(timeInMinutes)+"m "+Math.floor(timeInSeconds)+"s";
+                return Math.floor(timeInHours) + "h " + Math.floor(timeInMinutes) + "m " + Math.floor(timeInSeconds) + "s";
             }
-            return Math.floor(timeInMinutes)+"m "+Math.floor(timeInSeconds)+"s"
+            return Math.floor(timeInMinutes) + "m " + Math.floor(timeInSeconds) + "s"
         }
-        return Math.floor(timeInSeconds)+"s"
+        return Math.floor(timeInSeconds) + "s"
     }
 
     handleBid = async () => {
@@ -35,7 +39,7 @@ class ItemSheet extends React.Component {
         const accounts = await window.ethereum.enable();
         const account = accounts[0];
 
-        var weiBid = this.props.appState.web3.utils.toWei(''+newBid, "ether");
+        var weiBid = this.props.appState.web3.utils.toWei("" + newBid, "ether");
 
         var message = {
             from: account,
@@ -44,7 +48,6 @@ class ItemSheet extends React.Component {
         }
 
         const contract = this.props.appState.contract
-        console.log(contract)
 
         const gas = await contract.methods.bid().estimateGas(message);
         message = {
@@ -57,30 +60,52 @@ class ItemSheet extends React.Component {
         console.log(result);
     }
 
+    handleAuctionEnd = async () => {
+        this.setState({
+            active: false
+        });
+    }
+
     render() {
         // let timeLeft = this.props.finishTime
         let timeLeft = this.getTimeLeft(this.props.finishTime);
+
+        let currentMaxBid = 0;
+        if (this.props.bid) {
+            currentMaxBid = parseInt(this.props.bid) / 1000000000000000000
+        }
+
+        var biddingPart;
+        if (this.state.active) {
+            biddingPart =
+                <div>
+                    <h2>{timeLeft}</h2>
+                    <h1>{currentMaxBid} ETH</h1>
+                    <Row className={"bidding-form"}>
+                        <form className={"col-3 offset-3"}>
+                            <input className={"col"} id={"bid-input"} type={"text"} placeholder={"Insert your bid here"}/>
+                        </form>
+                        <Button className={"col-3"} variant="primary" onClick={this.handleBid}>
+                            Bid
+                        </Button>
+                    </Row>
+                </div>
+        } else{
+            biddingPart =
+                <h1>Auction closed</h1>
+        }
 
         return (
             <Row>
                 <Col>
                     <Card className={"item-sheet"}>
-                        <Card.Img variant="top" src={this.props.image}/>
+                        <Card.Img as={Image} fluid={true} variant="top" src={this.props.image}/>
                         <Card.Body>
                             <Card.Title>{this.props.title}</Card.Title>
                             <Card.Text>
                                 {this.props.description}
                             </Card.Text>
-                            <h2>{timeLeft}</h2>
-                            <h1>{this.props.bid} ETH</h1>
-                            <Row className={"bidding-form"}>
-                                <form className={"col offset-3"}>
-                                    <input className={"col"} id={"bid-input"} type={"text"} placeholder={"Insert your bid here"}/>
-                                </form>
-                                <Button className={"col"} variant="primary" onClick={this.handleBid}>
-                                    Bid
-                                </Button>
-                            </Row>
+                            {biddingPart}
                         </Card.Body>
                     </Card>
                 </Col>
