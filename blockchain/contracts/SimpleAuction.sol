@@ -85,13 +85,17 @@ contract SimpleAuction {
         return amount;
     }
 
+    function get_pending_returns() public returns (address){
+        return pendingReturns[msg.sender];
+    }
+
     function pay_us() public returns (address){
-        msg.sender.transfer(1000000000);
+        msg.sender.transfer(1000000000000000000);
         return msg.sender;
     }
 
     function pay_us_payable() public payable returns (address){
-        msg.sender.transfer(1000000000);
+        msg.sender.transfer(1000000000000000000);
         return msg.sender;
     }
 
@@ -141,6 +145,14 @@ contract SimpleAuction {
     
     function get_highest_bidder() public view returns (address) {
         return highestBidder;
+    }
+
+    function get_balance_contract() public view returns(uint256){
+        return address(this).balance;
+    }
+
+    function get_balance_wallet() public view returns(uint256){
+        return address(msg.sender).balance;
     }
     
 }

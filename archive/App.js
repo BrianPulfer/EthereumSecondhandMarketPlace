@@ -1,19 +1,36 @@
 import React, { useState } from 'react';
-import Web3 from 'web3';
-import { simpleStorageAbi } from './abis';
+import SimpleAuctionContract from "./build/contracts/SimpleAuction.json";
+import getWeb3 from "./getWeb3";
 import './App.css';
 
 function App() {
-  const web3 = new Web3(Web3.givenProvider);
+  static async function getWeb3(){
+  const web3 = await getWeb3();
+  return web3}
+  const web3 = getWeb3()
+
+  static async function getContract(){
+  const networkId = await web3.eth.net.getId();
+  const deployedNetwork = SimpleAuctionContract.networks[networkId];
+  SimpleContract = new web3.eth.Contract(
+            SimpleAuctionContract.abi,
+            deployedNetwork && deployedNetwork.address,
+        );
+  return SimpleContract
+      }
+
+  const SimpleContract = getContract() 
   
-  const contractAddr = '0x9af1b6Be409374619146Af6dECcAD802e2704CD5';
-  const SimpleContract = new web3.eth.Contract(simpleStorageAbi, contractAddr);
+  //const web3 = new Web3(Web3.givenProvider);
+  //const contractAddr = '0x9af1b6Be409374619146Af6dECcAD802e2704CD5';
+  //const SimpleContract = new web3.eth.Contract(simpleStorageAbi, contractAddr);
 
   //React management
   var [_value, setNumber] = useState(0);
   var [getNumber, setGetNumber] = useState('0x00');
 
   var [time_left, getTimeNumber] = useState('0x00');
+  var [balance_contract, getContractBalance] = useState('0x00');
 
 
   const handleBid = async (e) => {
@@ -47,6 +64,11 @@ function App() {
   async function handleGet (){
     const result = await SimpleContract.methods.get().call();
     setGetNumber(result);
+  }
+
+  async function handleBalance(){
+    const result = await SimpleContract.methods.balance_contract().call();
+    getContractBalance(result)
   }
 
   const handleWithdraw = async (e) => {
@@ -104,6 +126,7 @@ async function handleTime(){
 
   setTimeout(()=>{
     handleGet()
+    handleBalance()
     var time_difference = get_remaining_time(result)
     var string_time =''+ parseInt((Math.floor(time_difference/60))) + ":" + parseInt((time_difference - (Math.floor(time_difference/60)*60)))
     if (string_time.split(":")[1].length == 1){
@@ -184,6 +207,7 @@ function get_remaining_time(timestamp) {
         <div>
           
           <h1 id="time_left">Time Left: {time_left}</h1>
+          <h1 id="time_left">Contract Balance: {balance_contract}</h1>
         </div>
       </header>
     </div>  
