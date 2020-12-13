@@ -33,7 +33,7 @@ var SimpleContract
 setTimeout(()=>{
     web3 = new Web3(Web3.givenProvider);
     web3.setProvider(new Web3.providers.HttpProvider("HTTP://127.0.0.1:9545"))
-    const contractAddr = '0x9af1b6Be409374619146Af6dECcAD802e2704CD5';
+    const contractAddr = '0xFA372E7d69c556FdA7aa69B574C7F8ec9fEa8f78';
     var ContractClass = web3.eth.contract(contractAbi)
     SimpleContract = ContractClass.at(contractAddr);
     
@@ -57,8 +57,6 @@ async function bid() {
     const result = await SimpleContract.bid.sendTransaction(message);
     console.log(result);
     bid_input.value = ''
-
-
 }
 
 /* Get highest bid */
@@ -78,9 +76,7 @@ async function get_contract_balance(){
 
 /* Get wallet balance */
 async function get_wallet_balance(){
-    var result = await SimpleContract.get_balance_wallet();
     document.getElementById('wallet-balance').innerText = web3.eth.getBalance(account)
-    return result
 }
 
 /* Get wallet address */
@@ -89,18 +85,35 @@ function get_current_address(){
     return result
 }
 
+/* Get wallet pending returns */
+async function get_pending_returns(){
+    const result = await SimpleContract.get_pending_returns();
+    document.getElementById('pending-returns').innerText = result
+    return result
+}
+
 /* Testing Payments */
 const pay_button = document.getElementById('pay-button');
 pay_button.addEventListener('click', pay_us);
+
 async function pay_us(){
     const result = await SimpleContract.pay_us()
 }
 
+/* Withdraw Functionality */
+const withdraw_button = document.getElementById('withdraw-button');
+withdraw_button.addEventListener('click', withdraw);
+
+async function withdraw(){
+    const result = await SimpleContract.withdraw()
+    console.log("You just withdrew "+result +"Wei")
+}
 
 /* Update calls */
 setInterval(()=>{
     get_highest_bid()
     get_contract_balance()
     get_wallet_balance()
+    get_pending_returns()
 }, 1000)
 

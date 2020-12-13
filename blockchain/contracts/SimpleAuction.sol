@@ -14,6 +14,7 @@ contract SimpleAuction {
 
     // Allowed withdrawals of previous bids
     mapping(address => uint) pendingReturns;
+    mapping(address => uint) paidoutReturns;
 
     // Set to true at the end, disallows any change.
     // By default initialized to `false`.
@@ -80,13 +81,14 @@ contract SimpleAuction {
     /// Withdraw a bid that was overbid.
     function withdraw() public returns (uint) {
         uint amount = pendingReturns[msg.sender];
-        return_address = msg.sender;
-        return_address.transfer(amount);
-        return amount;
-    }
+        uint paidout = paidoutReturns[msg.sender];
+        uint payout = amount-paidout;
 
-    function get_pending_returns() public returns (address){
-        return pendingReturns[msg.sender];
+        msg.sender.transfer(payout);
+        
+        paidoutReturns[msg.sender] += payout;
+
+        return amount;
     }
 
     function pay_us() public returns (address){
@@ -135,8 +137,10 @@ contract SimpleAuction {
         return auctionEndTime;
     }
 
-    function get_returns() public view returns (uint) {
-            return pendingReturns[msg.sender];
+    function get_pending_returns() public view returns (uint) {
+            uint address_returns;
+            address_returns = pendingReturns[msg.sender]- paidoutReturns[msg.sender];
+            return address_returns;
         }
 
     function get_current_address() public view returns (address) {
