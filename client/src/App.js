@@ -47,6 +47,7 @@ class App extends Component {
         // this.onNewAuction = this.onNewAuction.bind(this);
 
         this.state = {
+            active: true,
             itemsTitles: itemsTitles,
             itemsImages: itemsImages,
             itemsDescriptions: itemsDescriptions,
@@ -118,11 +119,14 @@ class App extends Component {
             var finishTimes = this.state.finishTimes
             finishTimes.push(endTime)
 
-            console.log(endTime)
-            console.log(new Date().getTime()/1000)
-
             // Set web3, accounts, and contract to the state, and then proceed with an
             // example of interacting with the contract's methods.
+            instance.events.AuctionEnded((err, ev) => {
+                this.setState({
+                    active: false
+                })
+            });
+
             this.setState(
                 {
                     web3: web3,

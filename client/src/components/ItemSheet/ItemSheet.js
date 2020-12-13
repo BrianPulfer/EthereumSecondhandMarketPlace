@@ -8,25 +8,30 @@ class ItemSheet extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            active: this.props.appState.active,
+            timeLeft: "Computing time left..."
+        }
+
         // Counter
         setInterval(() => {
-                this.setState({
-                    timeLeft: this.getTimeLeft()
-                })
-            }, 1000)
-
-        this.state = {
-            active: true,
-            timeLeft: this.getTimeLeft()
-        }
+            this.setState({
+                timeLeft: this.getTimeLeft(this.props.finishTime)
+            })
+        }, 1000)
     }
 
     getTimeLeft(finishTime) {
+        console.log(finishTime)
         if (!finishTime) {
-            return "Timer starts with the first bid";
+            return "0s";
         }
 
         let timeInSeconds = (finishTime - new Date().getTime() / 1000);
+
+        if (timeInSeconds < 0){
+            return "0s";
+        }
 
         if (timeInSeconds > 60) {
             let timeInMinutes = timeInSeconds / 60
@@ -75,8 +80,6 @@ class ItemSheet extends React.Component {
     }
 
     render() {
-        // let timeLeft = this.props.finishTime
-        let timeLeft = this.getTimeLeft(this.props.finishTime);
 
         let currentMaxBid = 0;
         if (this.props.bid) {
@@ -87,7 +90,7 @@ class ItemSheet extends React.Component {
         if (this.state.active) {
             biddingPart =
                 <div>
-                    <h2>{timeLeft}</h2>
+                    <h2>{this.state.timeLeft}</h2>
                     <h1>{currentMaxBid} ETH</h1>
                     <Row className={"bidding-form"}>
                         <form className={"col-3 offset-3"}>
@@ -101,7 +104,7 @@ class ItemSheet extends React.Component {
                 </div>
         } else {
             biddingPart =
-                <h1>Auction closed</h1>
+                <h1 style={{color: "red"}}>Auction closed</h1>
         }
 
         return (
