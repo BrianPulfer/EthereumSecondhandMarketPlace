@@ -1,6 +1,5 @@
 import {contractAbi} from './abis.js';
 
-
 /* Load web3 */
 var web3
 var account 
@@ -36,9 +35,18 @@ setTimeout(()=>{
     const contractAddr = '0xFA372E7d69c556FdA7aa69B574C7F8ec9fEa8f78';
     var ContractClass = web3.eth.contract(contractAbi)
     SimpleContract = ContractClass.at(contractAddr);
-    
 }, 300)
 
+/* Load Contract Box */
+
+var AuctionBox
+setTimeout(()=>{
+    web3 = new Web3(Web3.givenProvider);
+    web3.setProvider(new Web3.providers.HttpProvider("HTTP://127.0.0.1:9545"))
+    const contractAddr = '0xFA372E7d69c556FdA7aa69B574C7F8ec9fEa8f78';
+    var ContractClass = web3.eth.contract(contractAbi)
+    AuctionBox = ContractClass.at(contractAddr);
+}, 300)
 
 
 
@@ -50,9 +58,7 @@ const bid_input = document.getElementById('bid-field');
 async function bid() {
     var _value = bid_input.value
     _value = web3.toWei(_value, "ether")
-    
     //let estimatedGas = SimpleContract.bid.estimateGas()
-
     var message = {from: account, value: ''+_value, gas: 100000}
     const result = await SimpleContract.bid.sendTransaction(message);
     console.log(result);
@@ -63,7 +69,6 @@ async function bid() {
 async function get_highest_bid(){
     const result = await SimpleContract.get();
     document.getElementById('highest-bid').innerText = result
-    
     return result
 }
 

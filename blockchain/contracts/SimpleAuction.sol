@@ -1,5 +1,21 @@
 pragma solidity >=0.4.22 <0.7.0;
 
+contract AuctionBox{
+    SimpleAuction[] public auctions; 
+   
+    function createAuction(uint _endTime)public{
+        // set the new instance
+        SimpleAuction newAuction = new SimpleAuction(_endTime, msg.sender);
+        // push the auction address to auctions array
+        auctions.push(newAuction);
+    }
+    
+    function returnAllAuctions() public view returns(SimpleAuction[] memory){
+        return auctions;
+    }
+}
+
+
 contract SimpleAuction {
     // Parameters of the auction. Times are either
     // absolute unix timestamps (seconds since 1970-01-01)
