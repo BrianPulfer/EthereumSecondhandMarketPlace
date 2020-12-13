@@ -92,6 +92,24 @@ async function get_pending_returns(){
     return result
 }
 
+
+async function get_time_left(){
+    const result = await SimpleContract.get_time();
+    function get_remaining_time(timestamp) {
+        var difference = timestamp - Date.now()/1000;
+        return difference;
+      }   
+      
+    var time_difference = get_remaining_time(result)
+    var string_time =''+ parseInt((Math.floor(time_difference/60))) + ":" + parseInt((time_difference - (Math.floor(time_difference/60)*60)))
+    if (string_time.split(":")[1].length == 1){
+      string_time = string_time.split(":")[0]+ ":0" +string_time.split(":")[1]
+    }
+    
+    document.getElementById('time-left').innerText = string_time
+
+}
+
 /* Testing Payments */
 const pay_button = document.getElementById('pay-button');
 pay_button.addEventListener('click', pay_us);
@@ -115,5 +133,7 @@ setInterval(()=>{
     get_contract_balance()
     get_wallet_balance()
     get_pending_returns()
+    get_time_left()
 }, 1000)
+
 
