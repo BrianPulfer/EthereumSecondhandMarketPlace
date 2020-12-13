@@ -1,4 +1,4 @@
-import {contractAbi} from './abis.js';
+import {contractAbi, boxAbi} from './abis.js';
 
 /* Load web3 */
 var web3
@@ -41,11 +41,9 @@ setTimeout(()=>{
 
 var AuctionBox
 setTimeout(()=>{
-    web3 = new Web3(Web3.givenProvider);
-    web3.setProvider(new Web3.providers.HttpProvider("HTTP://127.0.0.1:9545"))
-    const contractAddr = '0xFA372E7d69c556FdA7aa69B574C7F8ec9fEa8f78';
-    var ContractClass = web3.eth.contract(contractAbi)
-    AuctionBox = ContractClass.at(contractAddr);
+    const contractAddr = '0x3338FDF22E26691332322b0E4002869baB583528';
+    var ContractClassBox = web3.eth.contract(boxAbi)
+    AuctionBox = ContractClassBox.at(contractAddr);
 }, 300)
 
 
@@ -142,3 +140,21 @@ setInterval(()=>{
 }, 1000)
 
 
+/* Auction Box */
+const create_button = document.getElementById('create-auction-button')
+create_button.addEventListener('click', create_contract);
+
+async function create_contract(){
+    const bid_length = document.getElementById('bid-length')
+    var duration = parseInt(bid_length.value)
+    var message = {from: account, gas: 1000000}
+    const result = await AuctionBox.createAuction(duration, message)
+}
+
+const check_contracts = document.getElementById('check-contracts')
+check_contracts.addEventListener('click', get_contracts);
+
+async function get_contracts(){
+    const result = await AuctionBox.returnAllAuctions()
+    console.log(result)
+}

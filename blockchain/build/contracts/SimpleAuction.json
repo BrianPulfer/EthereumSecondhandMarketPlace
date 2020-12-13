@@ -8135,9 +8135,56 @@
     "name": "solc",
     "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "5777": {
+      "events": {
+        "0xdaec4582d5d9595688c8c98545fdd1c696d41c6aeaeb636737e84ed2f5c00eda": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "winner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "AuctionEnded",
+          "type": "event"
+        },
+        "0xf4757a49b326036464bec6fe419a4ae38c8a02ce3e68bf0809674f6aab8ad300": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "bidder",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "HighestBidIncreased",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xFA372E7d69c556FdA7aa69B574C7F8ec9fEa8f78",
+      "transactionHash": "0xa7fb24025b7f85aabcd6e6ea7dc07092bf29dc49b72e9d36d13598aee88c3be7"
+    }
+  },
   "schemaVersion": "3.3.2",
-  "updatedAt": "2020-12-13T15:52:40.198Z",
+  "updatedAt": "2020-12-13T19:59:30.081Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },
