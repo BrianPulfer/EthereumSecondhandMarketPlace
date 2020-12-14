@@ -1,8 +1,5 @@
 import {contractAbi, boxAbi} from './abis.js';
 
-
-
-
 /* Load web3 */
 var web3
 var account 
@@ -72,14 +69,14 @@ async function bid() {
 /* Get highest bid */
 async function get_highest_bid(){
     const result = await SimpleContract.get();
-    document.getElementById('highest-bid').innerText = result
+    document.getElementById('highest-bid').innerText = parseFloat(result)/1e18
     return result
 }
 
 /* Get contract balance */
 async function get_contract_balance(){
     const result = await SimpleContract.get_balance_contract();
-    document.getElementById('contract-balance').innerText = result
+    document.getElementById('contract-balance').innerText = parseFloat(result)/1e18
     return result
 }
 
@@ -97,7 +94,7 @@ function get_current_address(){
 /* Get wallet pending returns */
 async function get_pending_returns(){
     const result = await SimpleContract.get_pending_returns();
-    document.getElementById('pending-returns').innerText = result
+    document.getElementById('pending-returns').innerText = parseFloat(result)/1e18
     return result
 }
 
@@ -119,15 +116,6 @@ async function get_time_left(){
 
 }
 
-/* Testing Payments */
-//const pay_button = document.getElementById('pay-button');
-//pay_button.addEventListener('click', pay_us);
-
-async function pay_us(){
-    const result = await SimpleContract.pay_us()
-}
-
-/* Withdraw Functionality */
 const withdraw_button = document.getElementById('withdraw-button');
 withdraw_button.addEventListener('click', withdraw);
 
@@ -136,31 +124,34 @@ async function withdraw(){
     console.log("You just withdrew "+result +"Wei")
 }
 
+/* Get Title, Description, Image */
+async function get_title(){
+    const result = await SimpleContract.get_title();
+    document.getElementById('product-title').innerText = result
+    return result
+}
+
+async function get_description(){
+    const result = await SimpleContract.get_description();
+    document.getElementById('product-description').innerText = result
+    return result
+}
+
+async function get_image(){
+    const result = await SimpleContract.get_image();
+    document.getElementById('product-image').src = result
+    return result
+}
+
+
 /* Update calls */
 setInterval(()=>{
     get_highest_bid()
-    get_contract_balance()
-    get_wallet_balance()
     get_pending_returns()
     get_time_left()
+    get_title()
+    get_image()
+    get_description()
 }, 1000)
 
 
-/* Auction Box */
-const create_button = document.getElementById('create-auction-button')
-create_button.addEventListener('click', create_contract);
-
-async function create_contract(){
-    const bid_length = document.getElementById('bid-length')
-    var duration = parseInt(bid_length.value)
-    var message = {from: account, gas: 1000000}
-    const result = await AuctionBox.createAuction(duration, message)
-}
-
-const check_contracts = document.getElementById('check-contracts')
-check_contracts.addEventListener('click', get_contracts);
-
-async function get_contracts(){
-    const result = await AuctionBox.returnAllAuctions()
-    console.log(result)
-}

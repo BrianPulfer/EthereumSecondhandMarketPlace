@@ -49,20 +49,42 @@ async function get_contracts(){
     
     
 }
+/* Get Title, Description, Image */
+async function get_title(SimpleContract){
+    const result = await SimpleContract.get_title();
+    return result
+}
+
+async function get_description(SimpleContract){
+    const result = await SimpleContract.get_description();
+    return result
+}
+
+async function get_image(SimpleContract){
+    const result = await SimpleContract.get_image();
+    return result
+}
 
 /* Get Auctions */
-
 async function display_auctions(articles){
     var i
     for (i = 0; i < articles.length; i++) {
+        web3 = new Web3(Web3.givenProvider);
+        var contractAddr = articles[i];
+        web3.setProvider(new Web3.providers.HttpProvider("HTTP://127.0.0.1:9545"))
+        var ContractClass = web3.eth.contract(contractAbi)
+        var SimpleContract = ContractClass.at(contractAddr);
+        
+
         var randomizer = i%6 + 1
         var article = document.createElement("article");
         article.className = "style" +randomizer
         var span = document.createElement("article");
-        span.className = "img"
-        var img = document.createElement("img");
-        
-        img.src = "images/pic0"+ randomizer+ ".jpg"
+        span.className = "image"
+        var img = document.createElement("img")
+        img.height = 353
+        img.width = 326
+        img.src = await get_image(SimpleContract)
         span.appendChild(img);
         article.appendChild(img)
 
@@ -70,13 +92,13 @@ async function display_auctions(articles){
         var a = document.createElement("a");
         a.href="item.html?address=" +articles[i]
         var h2 = document.createElement("h2");
-        h2.innerText = "Title of the product"
+        h2.innerText = await get_title(SimpleContract)
 
         var div = document.createElement("div");
         div.className = "content"
 
         var p = document.createElement("p");
-        p.innerText = "Description of the product"
+        p.innerText = await get_description(SimpleContract)
 
         div.appendChild(p)
         a.appendChild(h2).appendChild(div);

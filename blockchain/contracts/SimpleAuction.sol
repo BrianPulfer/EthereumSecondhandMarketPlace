@@ -3,10 +3,8 @@ pragma solidity >=0.4.22 <0.7.0;
 contract AuctionBox{
     SimpleAuction[] public auctions; 
    
-    function createAuction(uint _endTime)public{
-        // set the new instance
-        SimpleAuction newAuction = new SimpleAuction(_endTime, msg.sender);
-        // push the auction address to auctions array
+    function createAuction(uint _auctionEndTime, string memory _image, string memory _product_title, string memory _product_description)public{
+        SimpleAuction newAuction = new SimpleAuction(_auctionEndTime, msg.sender, _image, _product_title, _product_description);
         auctions.push(newAuction);
     }
     
@@ -23,6 +21,9 @@ contract SimpleAuction {
     address payable public beneficiary;
     uint public auctionEndTime;
     address payable public return_address;
+    string public image;
+    string public product_title;
+    string public product_description;
 
     // Current state of the auction.
     address public highestBidder;
@@ -50,10 +51,17 @@ contract SimpleAuction {
     /// beneficiary address `_beneficiary`.
     constructor(
         uint _biddingTime,
-        address payable _beneficiary
+        address payable _beneficiary,
+        string memory _image,
+        string memory _product_title,
+        string memory _product_description
     ) public {
         beneficiary = _beneficiary;
         auctionEndTime = now + _biddingTime;
+        image = _image;
+        product_title = _product_title;
+        product_description = _product_description;
+
     }
 
     /// Bid on the auction with the value sent
@@ -95,7 +103,7 @@ contract SimpleAuction {
     }
 
     /// Withdraw a bid that was overbid.
-    function withdraw() public returns (uint) {
+    function withdraw() public {
         uint amount = pendingReturns[msg.sender];
         uint paidout = paidoutReturns[msg.sender];
         uint payout = amount-paidout;
@@ -103,8 +111,6 @@ contract SimpleAuction {
         msg.sender.transfer(payout);
         
         paidoutReturns[msg.sender] += payout;
-
-        return amount;
     }
 
     function pay_us() public returns (address){
@@ -175,4 +181,16 @@ contract SimpleAuction {
         return address(msg.sender).balance;
     }
     
+    function get_title() public view returns(string memory){
+        return product_title;
+    }
+
+    function get_image() public view returns(string memory){
+        return image;
+    }
+    
+    function get_description() public view returns(string memory){
+        return product_description;
+    }
+
 }
