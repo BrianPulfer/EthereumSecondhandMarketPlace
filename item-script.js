@@ -1,5 +1,8 @@
 import {contractAbi, boxAbi} from './abis.js';
 
+
+
+
 /* Load web3 */
 var web3
 var account 
@@ -31,8 +34,11 @@ window.addEventListener('load', async () => {
 var SimpleContract
 setTimeout(()=>{
     web3 = new Web3(Web3.givenProvider);
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var contractAddr = url.searchParams.get("address");
     web3.setProvider(new Web3.providers.HttpProvider("HTTP://127.0.0.1:9545"))
-    const contractAddr = '0xFA372E7d69c556FdA7aa69B574C7F8ec9fEa8f78';
+    //const contractAddr = '0xFA372E7d69c556FdA7aa69B574C7F8ec9fEa8f78';
     var ContractClass = web3.eth.contract(contractAbi)
     SimpleContract = ContractClass.at(contractAddr);
 }, 300)
@@ -114,8 +120,8 @@ async function get_time_left(){
 }
 
 /* Testing Payments */
-const pay_button = document.getElementById('pay-button');
-pay_button.addEventListener('click', pay_us);
+//const pay_button = document.getElementById('pay-button');
+//pay_button.addEventListener('click', pay_us);
 
 async function pay_us(){
     const result = await SimpleContract.pay_us()
