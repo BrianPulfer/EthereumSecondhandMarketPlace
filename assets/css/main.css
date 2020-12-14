@@ -3327,3 +3327,8 @@ input, select, textarea {
 			}
 
 		}
+
+#product-image{
+	object-fit: cover;
+    max-height: 400px;
+}

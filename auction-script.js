@@ -72,3 +72,5 @@ async function get_contracts(){
     const result = await AuctionBox.returnAllAuctions()
     console.log(result)
 }
+
+

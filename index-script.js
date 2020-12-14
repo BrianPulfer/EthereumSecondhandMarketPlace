@@ -70,7 +70,7 @@ async function display_auctions(articles){
     var i
     for (i = 0; i < articles.length; i++) {
         web3 = new Web3(Web3.givenProvider);
-        var contractAddr = articles[i];
+        var contractAddr = articles[articles.length-i-1];
         web3.setProvider(new Web3.providers.HttpProvider("HTTP://127.0.0.1:9545"))
         var ContractClass = web3.eth.contract(contractAbi)
         var SimpleContract = ContractClass.at(contractAddr);
@@ -82,17 +82,22 @@ async function display_auctions(articles){
         var span = document.createElement("article");
         span.className = "image"
         var img = document.createElement("img")
-        img.height = 353
-        img.width = 326
+        img.height = 360
+        img.width = 360
+        img.style.objectFit= "cover"
         img.src = await get_image(SimpleContract)
+
         span.appendChild(img);
         article.appendChild(img)
 
 
         var a = document.createElement("a");
-        a.href="item.html?address=" +articles[i]
-        var h2 = document.createElement("h2");
-        h2.innerText = await get_title(SimpleContract)
+        a.href="item.html?address=" +articles[articles.length-i-1]
+        var h3 = document.createElement("h3");
+        h3.innerText = await get_title(SimpleContract)
+
+        h3.style.color = "black"
+        h3.style.background = "rgba(255, 255, 255, 0.7)"
 
         var div = document.createElement("div");
         div.className = "content"
@@ -101,9 +106,10 @@ async function display_auctions(articles){
         p.innerText = await get_description(SimpleContract)
 
         div.appendChild(p)
-        a.appendChild(h2).appendChild(div);
+        a.appendChild(h3).appendChild(div);
         article.appendChild(a);
 
         document.getElementById('tiles').append(article);
     }
 }
+
