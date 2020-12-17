@@ -3,12 +3,12 @@ pragma solidity >=0.4.22 <0.7.0;
 contract ItemManager{
     Item[] public items; 
    
-    function putItemForSale(uint _duration, string memory _image, string memory _product_title, string memory _product_description)public{
+    function put_item_for_sale(uint _duration, string memory _image, string memory _product_title, string memory _product_description)public{
         Item item = new Item(_duration, msg.sender, _image, _product_title, _product_description);
         items.push(item);
     }
     
-    function returnAllAuctions() public view returns(Item[] memory){
+    function view_items() public view returns(Item[] memory){
         return items;
     }
 }
@@ -36,7 +36,8 @@ contract Item {
     bool ongoing;
 
     /* Event Messages */
-    event bid_increased(address leader, uint new_highest_bid);
+    event bid_increase(address leader, uint new_highest_bid);
+    event duration_increase(uint dur);
     event sale_completed(address winner, uint new_highest_bid);
 
     constructor(
@@ -66,10 +67,11 @@ contract Item {
         leader = msg.sender;
         highest_bid = msg.value;
         
-        /* if (duration-now < 180) {
+        if (duration-now < 180) {
            duration = now + 180;
-        } */
-        emit bid_increased(msg.sender, msg.value);
+           emit duration_increase(duration);
+        } 
+        emit bid_increase(msg.sender, msg.value);
     }
 
     function withdraw() public {
@@ -85,9 +87,9 @@ contract Item {
         require(now > duration, "Too soon to call. Item is still up for sale");
         require(ongoing, "The item sale has been called already");
 
-        ongoing = false;
+        
         seller.transfer(highest_bid);
-
+        ongoing = false;
         emit sale_completed(leader, highest_bid);
     }
 

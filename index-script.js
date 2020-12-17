@@ -42,7 +42,7 @@ setTimeout(()=>{
 
 /* Auction Box */
 async function get_contracts(){
-    const result = await ItemManager.returnAllAuctions(function(err, transactionHash) {
+    const result = await ItemManager.view_items(function(err, transactionHash) {
         if (!err){
             display_auctions(transactionHash)}})
     

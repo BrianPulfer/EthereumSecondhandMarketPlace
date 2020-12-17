@@ -47,7 +47,20 @@ export const contractAbi = [
         "type": "uint256"
       }
     ],
-    "name": "bid_increased",
+    "name": "bid_increase",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "dur",
+        "type": "uint256"
+      }
+    ],
+    "name": "duration_increase",
     "type": "event"
   },
   {
@@ -367,7 +380,6 @@ export const contractAbi = [
     "type": "function"
   }
 ]
-
 export const boxAbi = [
   {
     "constant": true,
@@ -414,7 +426,7 @@ export const boxAbi = [
         "type": "string"
       }
     ],
-    "name": "putItemForSale",
+    "name": "put_item_for_sale",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -423,7 +435,7 @@ export const boxAbi = [
   {
     "constant": true,
     "inputs": [],
-    "name": "returnAllAuctions",
+    "name": "view_items",
     "outputs": [
       {
         "internalType": "contract Item[]",

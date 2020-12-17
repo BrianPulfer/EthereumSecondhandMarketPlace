@@ -60,7 +60,7 @@ async function create_contract(){
     var product_description = document.getElementById('product-description').value
     var duration = parseInt(bid_length.value)
     var message = {from: account, gas: 1500000}
-    const result = await ItemManager.putItemForSale(duration, image_url, product_title, product_description, message)
+    const result = await ItemManager.put_item_for_sale(duration, image_url, product_title, product_description, message)
     console.log(result)
 }
 
